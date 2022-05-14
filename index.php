@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once 'dhb.php'
+    include_once 'dbh.php'
 ?>
 
 <!DOCTYPE html>
@@ -16,15 +16,19 @@
     <?php
     $sql = "SELECT * FROM user";
     $result = mysqli_query($conn, $sql);
-    if (mysql_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $id = $row['id'];
             $sqlImg = "SELECT * FROM profileimg WHERE userid='$id'";
-            $resulting = mysqli_query($conn, $sqlImg);
-            while ($rowImg = mysqli_fetch_assoc($resulting)) {
+            $resultImg = mysqli_query($conn, $sqlImg);
+            while ($rowImg = mysqli_fetch_assoc($resultImg)) {
                 echo "<div class='user-container'>";
                 if ($rowImg['status'] == 0){
-                    echo "<img src='uploads/profile".$id.".jpg?'".mt_rand().">";
+                    $filename = "uploads/profile".$id."*";
+                    $fileinfo = glob($filename);
+                    $fileext = explode(".", $fileinfo[0]);
+                    $fileactualtext = $fileext[1];
+                    echo "<img src='uploads/profile".$id.".".$fileactualtext."?".mt_rand().">";
                 } else {
                     echo "<img src='uploads/profiledefault.jpg'>";
                 }
