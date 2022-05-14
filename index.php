@@ -48,7 +48,7 @@
                 <input type ='file' name='file'>
                 <button type ='submit' name='submit'>UPLOAD</button>
             </form>";
-            echo "<form action ='deleteprofile.php' method='POST' entype='multipart/form-data'>
+            echo "<form action ='deleteprofile.php' method='POST'>
                 <button type ='submit' name='submit'>Delete Profile</button>
             </form>";
             
